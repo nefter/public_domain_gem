@@ -7,11 +7,13 @@ module PublicDomain
     end
 
     def results
-      document.css(".booklink").map do |node|
+      results ||= document.css(".booklink").map do |node|
         {
           title: node.css(".title")&.text,
           author: node.css(".subtitle")&.text,
-          downloads: node.css(".extra")&.text&.scan(/(\d+)\sdownloads/)&.flatten&.first&.to_i
+          downloads: node.css(".extra")&.text&.scan(/(\d+)\sdownloads/)&.flatten&.first&.to_i,
+          path: "https://www.gutenberg.org"+node.css(".link")&.attribute("href")&.value
+          # path: URI
         }
       end
     end

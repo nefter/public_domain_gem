@@ -10,5 +10,7 @@ module PublicDomain
   class Error < StandardError
   end
 
-  def self.search(item); end
+  def self.search(item)
+    Search.new(item).results
+  end
 end
